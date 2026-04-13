@@ -1,0 +1,30 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Data
+data/
+dataset/
+datasets/
+
+# Models
+models/
+*.h5
+*.pt
+*.pth
+
+# System
+.DS_Store
+.env
+
+outputs/
+*.mp4
+*.zip
+*.rar
+dataset/
+models/

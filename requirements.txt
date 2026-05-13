@@ -4,4 +4,6 @@ tqdm==4.67.3
 opencv-python==4.13.0.92
 mediapipe==0.10.14
 matplotlib==3.10.8
-streamlit==1.45.0
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+python-multipart==0.0.20

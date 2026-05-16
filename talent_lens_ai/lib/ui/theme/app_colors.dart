@@ -4,6 +4,7 @@ class AppColors {
   // Brand Colors
   static const Color background = Color(0xFF0A0E1A); // Deep navy
   static const Color surface = Color(0xFF151B2D);    // Lighter navy
+  static const Color surfaceVariant = Color(0xFF1E2740); // Card variant
   static const Color accent = Color(0xFF00E5FF);     // Neon Cyan
   static const Color secondary = Color(0xFF7C4DFF);  // Deep Purple
   static const Color highlight = Color(0xFFFF6B35);  // Energy Orange

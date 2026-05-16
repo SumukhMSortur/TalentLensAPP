@@ -20,14 +20,19 @@ import 'pose_provider.dart';
  * [TFLiteService] ──────────────────► [FeedbackEngine]
  */
 
-final tfliteServiceProvider = Provider.autoDispose<TFLiteService>((ref) {
+// Permanent singleton — must NOT be autoDispose.
+// If autoDispose, the provider is destroyed and recreated on every stream
+// rebuild (once per camera frame), causing TFLite to re-initialize in an
+// infinite loop and flooding the log with "not a valid Flatbuffer" errors.
+final tfliteServiceProvider = Provider<TFLiteService>((ref) {
   final service = TFLiteService();
-  service.initialize();
+  service.initialize(); // called exactly once for the app's lifetime
   ref.onDispose(() => service.dispose());
   return service;
 });
 
-final slidingWindowProvider = Provider.autoDispose<SlidingWindowService>((ref) {
+// Also permanent — must retain the rolling 30-frame buffer across rebuilds.
+final slidingWindowProvider = Provider<SlidingWindowService>((ref) {
   return SlidingWindowService();
 });
 
@@ -44,7 +49,7 @@ class InferenceState {
 
   InferenceState copyWith({
     InferenceResult? result,
-    List<FeedbackItem> feedback,
+    List<FeedbackItem>? feedback,
     bool? isModelLoaded,
   }) {
     return InferenceState(

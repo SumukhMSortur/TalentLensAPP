@@ -41,19 +41,24 @@ class FeedbackEngine {
       ));
     }
 
+    // NOTE: After Z-score normalisation the angles are dimensionless.
+    // We only use raw-index accessors for symmetry ratios (indices 68-73)
+    // which are already ratio-based and unaffected by normalisation.
+
     // Example: Symmetry Check
-    // 12 Symmetry Ratios start at index 24 (wait, check FeatureExtractionService)
-    // 0: angles, 12: velocities, 24: positions, 68: symmetry (6 ratios)
-    // 12 + 12 + 44 = 68. Symmetry ratios start at index 68.
-    
-    final shoulderSymmetry = features.vector[69]; // left_shoulder/right_shoulder
-    if (shoulderSymmetry.abs() > 0.15) {
-      feedback.add(FeedbackItem(
-        message: "Shoulders uneven. Balance your weight distribution.",
-        severity: FeedbackSeverity.warning,
-        affectedJoint: "Shoulders",
-        timestamp: DateTime.now(),
-      ));
+    // Layout: 12 angles | 12 velocities | 44 positions | 6 symmetry | 2 COM
+    //         [0-11]      [12-23]          [24-67]        [68-73]     [74-75]
+    // Pair order: elbow(68), shoulder(69), hip(70), knee(71), ankle(72), trunk(73)
+    if (features.vector.length > 69) {
+      final shoulderSymmetry = features.vector[69]; // shoulder L/R ratio
+      if (shoulderSymmetry.abs() > 0.15) {
+        feedback.add(FeedbackItem(
+          message: "Shoulders uneven. Balance your weight distribution.",
+          severity: FeedbackSeverity.warning,
+          affectedJoint: "Shoulders",
+          timestamp: DateTime.now(),
+        ));
+      }
     }
 
     return feedback;

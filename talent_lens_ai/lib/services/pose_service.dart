@@ -13,7 +13,6 @@ class PoseService {
     _poseDetector = PoseDetector(
       options: PoseDetectorOptions(
         mode: PoseDetectionMode.stream,
-        modelConfig: PoseDetectionModel.base,
       ),
     );
   }

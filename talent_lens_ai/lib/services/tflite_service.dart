@@ -20,17 +20,11 @@ class TFLiteService {
 
       if (Platform.isAndroid) {
         try {
-          // Attempt to add GPU Delegate
+          // Attempt to add GPU Delegate (falls back to CPU internally if unsupported)
           options.addDelegate(GpuDelegateV2());
           _logger.i('TFLite: GPU Delegate (V2) added successfully.');
         } catch (e) {
-          _logger.w('TFLite: GPU Delegate failed, falling back to NNAPI. Error: $e');
-          try {
-            options.addDelegate(NnApiDelegate());
-            _logger.i('TFLite: NNAPI Delegate added successfully.');
-          } catch (e) {
-            _logger.e('TFLite: All hardware delegates failed, using CPU. Error: $e');
-          }
+          _logger.w('TFLite: GPU Delegate failed, using CPU. Error: $e');
         }
       }
 

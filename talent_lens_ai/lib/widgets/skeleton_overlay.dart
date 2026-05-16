@@ -27,8 +27,12 @@ class SkeletonOverlay extends CustomPainter {
 
     // 1. Draw Connections (Bones)
     for (final connection in PoseConstants.connections) {
-      final startNode = pose!.landmarks[connection[0]];
-      final endNode = pose!.landmarks[connection[1]];
+      final int idx0 = connection[0];
+      final int idx1 = connection[1];
+      // Guard: only draw if both landmark indices are within bounds
+      if (idx0 >= pose!.landmarks.length || idx1 >= pose!.landmarks.length) continue;
+      final startNode = pose!.landmarks[idx0];
+      final endNode = pose!.landmarks[idx1];
 
       // Only draw if both points have decent visibility
       if (startNode.visibility > 0.5 && endNode.visibility > 0.5) {
@@ -36,7 +40,7 @@ class SkeletonOverlay extends CustomPainter {
         final end = _mapOffset(endNode.x, endNode.y, size);
 
         // Color based on region (Arm, Leg, Torso)
-        paintLine.color = _getConnectionColor(connection[0], connection[1]);
+        paintLine.color = _getConnectionColor(idx0, idx1);
         canvas.drawLine(start, end, paintLine);
       }
     }

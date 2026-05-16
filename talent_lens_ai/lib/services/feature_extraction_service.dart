@@ -58,8 +58,8 @@ class FeatureExtractionService {
     ];
 
     for (final pair in bilateralPairs) {
-      final left = currentAngles[pair[0]]!;
-      final right = currentAngles[pair[1]]!;
+      final left = currentAngles[pair[0]] ?? 0.0;
+      final right = currentAngles[pair[1]] ?? 0.0;
       // Ratio = (L - R) / (L + R + eps) normalized to [-1, 1]
       final symmetry = (left - right) / (left + right + 0.001);
       features.add(symmetry);

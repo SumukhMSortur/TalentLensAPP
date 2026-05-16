@@ -24,8 +24,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.talentlens.ai"
-    compileSdk flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    compileSdk 35
+    ndkVersion "25.1.8937393"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -42,7 +42,7 @@ android {
 
     defaultConfig {
         applicationId "com.talentlens.ai"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -61,6 +61,17 @@ android {
     aaptOptions {
         noCompress 'tflite'
         noCompress 'lite'
+    }
+
+    // Fix: Android 15 (API 35) 16KB page-size alignment warning.
+    // libtensorflowlite_jni.so, libflutter.so, and libVkLayer_khronos_validation.so
+    // are not yet compiled with 16KB alignment. Using useLegacyPackaging = true
+    // instructs the OS to extract .so files to disk before loading (instead of
+    // mmap-ing directly from the compressed APK), bypassing the alignment check.
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 

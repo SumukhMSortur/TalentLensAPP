@@ -64,9 +64,11 @@ class CameraService {
     }
   }
 
-  void dispose() {
-    stopStream();
-    _controller?.dispose();
-    _frameStreamController.close();
+  Future<void> dispose() async {
+    await stopStream();
+    await _controller?.dispose();
+    if (!_frameStreamController.isClosed) {
+      await _frameStreamController.close();
+    }
   }
 }

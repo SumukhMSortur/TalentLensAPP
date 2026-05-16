@@ -40,16 +40,18 @@ dependencies:
   fl_chart: ^0.68.0        # Real-time performance analytics charts
   shimmer: ^3.0.0          # Premium skeleton loading states
 
-  # Optional: Firebase (Togglable cloud sync foundation)
-  firebase_core: ^3.3.0
-  firebase_auth: ^5.1.4
-  cloud_firestore: ^5.2.1
+  # Optional: Firebase (Togglable cloud sync — requires google-services.json)
+  # Uncomment when you have added google-services.json to android/app/
+  # firebase_core: ^3.3.0
+  # firebase_auth: ^5.1.4
+  # cloud_firestore: ^5.2.1
 
   # Utilities: Enhanced stability and functional programming patterns
   uuid: ^4.4.0
   logger: ^2.4.0           # Structured logging for inference performance
   dartz: ^0.10.1           # Either<Failure, T> for robust error handling
   rxdart: ^0.28.0          # Reactive extensions for complex frame streams
+  intl: ^0.19.0            # Date formatting used in PerformanceScreen
 
 dev_dependencies:
   flutter_test:

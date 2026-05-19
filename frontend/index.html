@@ -21,6 +21,9 @@
         <span class="logo-text">TalentLens <span class="logo-ai">AI</span></span>
       </div>
       <nav class="header-nav">
+        <span class="nav-accuracy" id="nav-accuracy" style="margin-right: 16px; font-weight: 600; color: #00D2FF; font-size: 14px;">
+          Model Accuracy: Loading...
+        </span>
         <span class="nav-status" id="nav-status">
           <span class="status-dot"></span>
           Ready
@@ -171,6 +174,7 @@
           </div>
           <div class="video-wrapper">
             <video id="athlete-result-video" controls preload="metadata" playsinline></video>
+            <p class="video-error" id="athlete-video-error" hidden></p>
           </div>
         </div>
 
@@ -185,6 +189,7 @@
           </div>
           <div class="video-wrapper">
             <video id="user-result-video" controls preload="metadata" playsinline></video>
+            <p class="video-error" id="user-video-error" hidden></p>
           </div>
         </div>
       </div>
@@ -208,15 +213,35 @@
 
     <!-- Joint Error Chart -->
     <div class="charts-section" id="charts-section">
-      <h2 class="section-title">Joint Analysis</h2>
+      <h2 class="section-title">Results Graphs</h2>
+      <div class="charts-grid charts-grid-wide">
+        <div class="chart-card" id="similarity-score-chart">
+          <h3 class="chart-title">Similarity Score Comparison</h3>
+          <div class="comparison-bars" id="similarity-bars"></div>
+        </div>
+        <div class="chart-card" id="score-breakdown-chart">
+          <h3 class="chart-title">Form vs Symmetry vs Consistency</h3>
+          <div class="vertical-bars" id="score-bars"></div>
+        </div>
+      </div>
       <div class="charts-grid">
         <div class="chart-card" id="joint-error-chart">
+          <h3 class="chart-title">Joint Error Comparison</h3>
+          <div class="line-chart" id="joint-line-chart"></div>
+        </div>
+        <div class="chart-card" id="classification-pie-chart">
+          <h3 class="chart-title">Action Classification Accuracy</h3>
+          <div class="pie-chart-wrap" id="classification-pie"></div>
+        </div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card" id="joint-error-bar-chart">
           <h3 class="chart-title">Per-Joint Error (degrees)</h3>
           <div class="bar-chart" id="bar-chart"></div>
         </div>
-        <div class="chart-card" id="prediction-chart">
-          <h3 class="chart-title">Action Classification</h3>
-          <div class="prediction-bars" id="prediction-bars"></div>
+        <div class="chart-card" id="joint-histogram-chart">
+          <h3 class="chart-title">Distribution of Joint Angle Errors</h3>
+          <div class="histogram" id="joint-error-histogram"></div>
         </div>
       </div>
     </div>

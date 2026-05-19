@@ -17,7 +17,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, File, Form, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 # Ensure project root is on the import path
@@ -83,6 +83,12 @@ if FRONTEND_DIR.exists():
 
 # Serve output videos as static files
 app.mount("/videos", StaticFiles(directory=str(OUTPUT_ROOT)), name="videos")
+
+
+@app.get("/")
+async def root():
+    return RedirectResponse(url="/app/")
+
 
 # ---------------------------------------------------------------------------
 # In-memory result store (keyed by job_id)
@@ -319,5 +325,5 @@ if __name__ == "__main__":
         "backend.server:app",
         host="127.0.0.1",
         port=8000,
-        reload=True,
+        reload=False,
     )
